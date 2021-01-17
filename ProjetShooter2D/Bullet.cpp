@@ -8,13 +8,3 @@ Bullet::Bullet(Texture* texture, Vector2f pos)
 }
 
 Bullet::~Bullet(){}
-/*
-Sprite Bullet::getShape()
-{
-	return shape;
-}
-
-void Bullet::setShape(Sprite shap)
-{
-	shape = shap;
-}*/

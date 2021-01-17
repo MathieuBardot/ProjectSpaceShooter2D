@@ -11,14 +11,9 @@ public:
 
 	Sprite shape;
 
-	//Getter et Setter
-	/*Sprite getShape();
-	void setShape(Sprite shap);*/
-
 protected:
 
 private:
-	//Sprite shape1;
 
 };
 

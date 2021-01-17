@@ -11,7 +11,7 @@ using namespace sf;
 int main()
 {
     srand(time(NULL));
-    RenderWindow window(sf::VideoMode(800, 600), "Space Shooter");
+    RenderWindow window(sf::VideoMode(800, 600), "Space Shooter 2D");
     window.setFramerateLimit(60);
 
     //Init text
@@ -41,32 +41,22 @@ int main()
     gameOver.setFont(font);
     gameOver.setCharacterSize(50);
     gameOver.setFillColor(Color::Red);
-    gameOver.setPosition(100.f, (float)(window.getSize().y /2));
+    gameOver.setPosition(100.f, (float)(window.getSize().x /2));
     gameOver.setString("GAME OVER !");
 
     //Player Init
     Player player(&playerTex);
-    int ShootTimer = 20;
     int scoring = 0;
-
+    // Life bar for player
     RectangleShape hpPlayer(Vector2f((float)player.getHPMax()*10,10.f));
     hpPlayer.setFillColor(Color::Blue);
-
-    /*Text hpText;
-    hpText.setFont(font);
-    hpText.setCharacterSize(12);
-    hpText.setFillColor(Color::Black);*/
 
     //Ennemie Init
     int enemySpawnTimer = 0;
     std::vector<Enemy> ennemies;
-   
+    // Life bar for enemies
     RectangleShape hpEnemy(Vector2f(100.f, 100.f));
-
-    /*Text ehpText;
-    ehpText.setFont(font);
-    ehpText.setCharacterSize(12);
-    ehpText.setFillColor(Color::Black);*/
+    hpEnemy.setFillColor(Color::Red);
 
     while (window.isOpen())
     {
@@ -79,55 +69,20 @@ int main()
 
         if (player.getHP() > 0)
         {
-            //Player movement
-            if (Keyboard::isKeyPressed(Keyboard::Up))
-                player.shape.move(0.f, -10.f);
-            if (Keyboard::isKeyPressed(Keyboard::Down))
-                player.shape.move(0.f, 10.f);
-            if (Keyboard::isKeyPressed(Keyboard::Right))
-                player.shape.move(10.f, 0.f);
-            if (Keyboard::isKeyPressed(Keyboard::Left))
-                player.shape.move(-10.f, 0.f);
+            player.Movement();
 
             hpPlayer.setPosition(player.shape.getPosition().x, player.shape.getPosition().y - hpPlayer.getGlobalBounds().height);
 
-            /*hpText.setPosition(player.shape.getPosition().x, player.shape.getPosition().y - hpText.getGlobalBounds().height);
-            hpText.setString(std::to_string(player.HP) + "/" + std::to_string(player.HPMax));*/
+            player.WindowCollision(window.getSize());
 
-            //Collision with Window for Player
-            if (player.shape.getPosition().x <= 0) //Left
-                player.shape.setPosition(0.f, player.shape.getPosition().y);
-            if (player.shape.getPosition().x >= window.getSize().x - player.shape.getGlobalBounds().width) //Right
-                player.shape.setPosition(window.getSize().x - player.shape.getGlobalBounds().width, player.shape.getPosition().y);
-            if (player.shape.getPosition().y <= 0) //Top
-                player.shape.setPosition(player.shape.getPosition().x, 0.f);
-            if (player.shape.getPosition().y >= window.getSize().y - player.shape.getGlobalBounds().height) //Bottom
-                player.shape.setPosition(player.shape.getPosition().x, window.getSize().y - player.shape.getGlobalBounds().height);
+            player.Shooting(&bulletTex);
 
-            //Update
-            if (ShootTimer < 20)
-                ShootTimer++;
+            player.MovementBullets();
 
-            if (Mouse::isButtonPressed(Mouse::Left) && ShootTimer >= 20) // Shooting
-            {
-                player.bullets.push_back(Bullet(&bulletTex, player.shape.getPosition()));
-                ShootTimer = 0; //reset timer
-            }
+            player.BulletsOut(window.getSize());
 
-
-            //Bullets out of window
             for (size_t i = 0; i < player.bullets.size(); i++)
             {
-                //Move Bullets 
-                player.bullets[i].shape.move(20.f, 0.f);
-
-                //Case Bullets get out of the window
-                if (player.bullets[i].shape.getPosition().x > window.getSize().x)
-                {
-                    player.bullets.erase(player.bullets.begin() + i);
-                    break;
-                }
-
                 //Ennemy Collision with Bullets
                 for (size_t j = 0; j < ennemies.size(); j++)
                 {
@@ -197,13 +152,7 @@ int main()
         for (size_t i = 0; i <ennemies.size(); i++)
         {
             hpEnemy.setSize(Vector2f((float)(ennemies[i].getHPMax()*10), 5.f));
-            hpEnemy.setFillColor(Color::Red);
             hpEnemy.setPosition(ennemies[i].shape.getPosition().x, ennemies[i].shape.getPosition().y - hpEnemy.getGlobalBounds().height);
-
-            /*ehpText.setString(std::to_string(ennemies[i].Hp) + "/" + std::to_string(ennemies[i].HPMax));
-            ehpText.setPosition(ennemies[i].shape.getPosition().x, ennemies[i].shape.getPosition().y - ehpText.getGlobalBounds().height);
-            window.draw(ehpText);*/
-
             window.draw(hpEnemy);
             window.draw(ennemies[i].shape);
         }

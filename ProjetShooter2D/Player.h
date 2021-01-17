@@ -22,18 +22,19 @@ public:
 	void setHPMax(int hpmax);
 	Texture getTex();
 	void setTex(Texture* tex);
-	/*Sprite getShape();
-	void setShape(Sprite shap);
-	std::vector<Bullet> getBullet();
-	void setBullet(std::vector<Bullet> bull);*/
+
+	void Movement();
+	void WindowCollision(Vector2u windowSize);
+	void Shooting(Texture* bulletText);
+	void MovementBullets();
+	void BulletsOut(Vector2u windowSize);
 
 protected:
+	int ShootTimer;
 
 private:
 	int HP;
 	int HPMax;
 	Texture *texture;
-	//Sprite shape1;
-
 };
 
