@@ -1,0 +1,4 @@
+﻿  Main.cpp
+Main.obj : error LNK2001: symbole externe non résolu "public: static class sf::RenderStates const sf::RenderStates::Default" (?Default@RenderStates@sf@@2V12@B)
+Main.obj : error LNK2001: symbole externe non résolu "public: static class sf::Color const sf::Color::Green" (?Green@Color@sf@@2V12@B)
+C:\Users\Mathieu\Documents\ProjetShooter2D\x64\Release\ProjetShooter2D.exe : fatal error LNK1120: 2 externes non résolus
