@@ -6,10 +6,9 @@ using namespace sf;
 class Bullet
 {
 public:
-	Bullet(Texture* texture, Vector2f pos);
+	Bullet(Vector2f pos);
 	~Bullet();
-
-	Sprite shape;
+	RectangleShape shape;
 
 protected:
 

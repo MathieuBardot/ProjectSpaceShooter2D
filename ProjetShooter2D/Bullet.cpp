@@ -1,9 +1,9 @@
 #include "Bullet.h"
 
-Bullet::Bullet(Texture* texture, Vector2f pos)
+Bullet::Bullet(Vector2f pos)
 {
-	this->shape.setTexture(*texture);
-	this->shape.setScale(0.07f, 0.07f);
+	this->shape.setSize(Vector2f(30.0f, 30.0f));
+	this->shape.setFillColor(Color::Green);
 	this->shape.setPosition(pos);
 }
 

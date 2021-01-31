@@ -17,24 +17,19 @@ int main()
     //Init text
     sf::Font font;
     font.loadFromFile("arial.ttf");
-    /*if (!font.loadFromFile("arial.ttf"))
-        return EXIT_FAILURE;*/
 
     // Init textures
     Texture playerTex;
-    playerTex.loadFromFile("Images/ShipPlayer.jpg");
+    playerTex.loadFromFile("Images/ShipPlayer2.png");
 
     Texture ennemiTex;
-    ennemiTex.loadFromFile("Images/EnnemiShip.jpg");
-
-    Texture bulletTex;
-    bulletTex.loadFromFile("Images/Missile2.jpg");
+    ennemiTex.loadFromFile("Images/EnnemiShip2.png");
     
     //UI Init
     Text score;
     score.setFont(font);
     score.setCharacterSize(20);
-    score.setFillColor(Color::Black);
+    score.setFillColor(Color::White);
     score.setPosition(10.f, 10.f);
 
     Text gameOver;
@@ -75,7 +70,7 @@ int main()
 
             player.WindowCollision(window.getSize());
 
-            player.Shooting(&bulletTex);
+            player.Shooting();
 
             player.MovementBullets();
 
@@ -129,6 +124,7 @@ int main()
                 //Enemy collision with Player
                 if (ennemies[i].shape.getGlobalBounds().intersects(player.shape.getGlobalBounds()))
                 {
+                    scoring += ennemies[i].getHPMax();
                     ennemies.erase(ennemies.begin() + i);
                     player.setHP(player.getHP() - ennemies[i].getHP());
                     hpPlayer.setSize(Vector2f((float)(player.getHP()*10),10.f));
@@ -136,6 +132,13 @@ int main()
                 }
             }
         }
+
+        // Realncer le jeu 
+        /*if (Keyboard::isKeyPressed(Keyboard::Space))
+        {
+            scoring = 0;
+            player.setHPMax(player.getHPMax());
+        }*/
 
         //UI Update
         score.setString("Score :" + std::to_string(scoring));
@@ -159,7 +162,6 @@ int main()
 
         //UI
         window.draw(score);
-        //window.draw(hpText);
         window.draw(hpPlayer);
 
         if (player.getHP() <= 0)

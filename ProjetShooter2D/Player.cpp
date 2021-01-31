@@ -10,11 +10,7 @@ Player::Player(Texture *tex)
 	this->texture = tex;
 
 	this->shape.setTexture(*texture);
-	this->shape.setScale(0.5f,0.5f);
-
-	//this->shape.setRotation(90.f);
-	//this->shape.setPosition(0.f, 0.f);
-
+	this->shape.setScale(0.3f,0.3f);
 }
 
 Player::~Player() {}
@@ -75,14 +71,14 @@ void Player::WindowCollision(Vector2u windowSize)
 }
 
 // Player shoot bullets
-void Player::Shooting(Texture* bulletTex)
+void Player::Shooting()
 {
 	if (this->ShootTimer < 20)
 		this->ShootTimer++;
 
 	if (Mouse::isButtonPressed(Mouse::Left) && ShootTimer >= 20) // Shooting
 	{
-		this->bullets.push_back(Bullet(bulletTex, this->shape.getPosition()));
+		this->bullets.push_back(Bullet(this->shape.getPosition()));
 		ShootTimer = 0; //reset timer
 	}
 }

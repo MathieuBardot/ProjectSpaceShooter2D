@@ -25,7 +25,8 @@ public:
 
 	void Movement();
 	void WindowCollision(Vector2u windowSize);
-	void Shooting(Texture* bulletText);
+	//void Shooting(Texture* bulletText);
+	void Shooting();
 	void MovementBullets();
 	void BulletsOut(Vector2u windowSize);
 
