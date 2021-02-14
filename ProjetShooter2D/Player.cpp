@@ -4,11 +4,9 @@ Player::Player(Texture *tex)
 {
 	this->HPMax = 15;
 	this->HP = this->HPMax;
-
 	this->ShootTimer = 20;
 
 	this->texture = tex;
-
 	this->shape.setTexture(*texture);
 	this->shape.setScale(0.3f,0.3f);
 }

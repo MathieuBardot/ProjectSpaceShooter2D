@@ -7,7 +7,6 @@ Enemy::Enemy(Texture* tex, Vector2u windowSize)
 
 	this->shape.setTexture(*tex);
 	this->shape.setScale(0.2f, 0.2f);
-
 	this->shape.setPosition(windowSize.x - this->shape.getGlobalBounds().width, (float)(rand() % (int)(windowSize.y - this->shape.getGlobalBounds().height)));
 }
 
