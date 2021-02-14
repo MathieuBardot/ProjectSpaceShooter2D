@@ -2,39 +2,42 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+#include "Enemy.h"
 #include "Bullet.h"
 
-using namespace sf;
-
-class Player
+class Player : public Enemy
 {
 public:
-	Player(Texture *tex);
+	Player();
+	Player(sf::Texture *tex);
 	~Player();
 
-	Sprite shape;
+	//sf::Sprite shape;
 	std::vector<Bullet> bullets;
+	//int SpawnTimer;
 
 	// Getter et Setter
-	int getHP();
+	/*int getHP();
 	void setHP(int hp);
 	int getHPMax();
 	void setHPMax(int hpmax);
-	Texture getTex();
-	void setTex(Texture* tex);
+	sf::Texture getTex();
+	void setTex(sf::Texture* tex);*/
+	int getScoring();
+	void setScoring(int score);
 
 	void Movement();
-	void WindowCollision(Vector2u windowSize);
+	void WindowCollision(sf::Vector2u windowSize);
 	void Shooting();
 	void MovementBullets();
-	void BulletsOut(Vector2u windowSize);
+	void BulletsOut(sf::Vector2u windowSize);
 
-protected:
-	int ShootTimer;
+	void EnemyCollisionWithBullets(std::vector<Enemy> ennemies);
 
 private:
-	int HP;
+	/*int HP;
 	int HPMax;
-	Texture *texture;
+	sf::Texture *texture;*/
+	int scoring;
 };
 

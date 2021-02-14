@@ -1,19 +1,32 @@
 #include "Player.h"
 
+Player::Player()
+{
+	this->setHPMax(15);
+	this->setHP(getHPMax());
+	this->SpawnTimer = 0;
+	this->scoring = 0;
+}
+
 Player::Player(Texture *tex)
 {
-	this->HPMax = 15;
+	this->setHPMax(15);
+	this->setHP(getHPMax());
+	this->SpawnTimer = 30;
+	/*this->HPMax = 15;
 	this->HP = this->HPMax;
-	this->ShootTimer = 20;
+	this->ShootTimer = 20;*/
+	this->scoring = 0;
 
-	this->texture = tex;
-	this->shape.setTexture(*texture);
+	//this->shape.setTexture(*tex);
+	this->shape.setTexture(*tex);
 	this->shape.setScale(0.3f,0.3f);
 }
 
 Player::~Player() {}
 
-int Player::getHP()
+// Getter and Setter
+/*int Player::getHP()
 {
 	return HP;
 }
@@ -33,30 +46,40 @@ void Player::setHPMax(int hpmax)
 	HPMax = hpmax;
 }
 
-Texture Player::getTex() {
+sf::Texture Player::getTex() {
 	return *texture;
 }
 
-void Player::setTex(Texture* tex)
+void Player::setTex(sf::Texture* tex)
 {
 	*texture = *tex;
+}*/
+
+int Player::getScoring()
+{
+	return scoring;
+}
+
+void Player::setScoring(int score)
+{
+	scoring = score;
 }
 
 // Player movement
 void Player::Movement()
 {
-	if (Keyboard::isKeyPressed(Keyboard::Up))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		this->shape.move(0.f, -10.f);
-	if (Keyboard::isKeyPressed(Keyboard::Down))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		this->shape.move(0.f, 10.f);
-	if (Keyboard::isKeyPressed(Keyboard::Right))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		this->shape.move(10.f, 0.f);
-	if (Keyboard::isKeyPressed(Keyboard::Left))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		this->shape.move(-10.f, 0.f);
 }
 
 // Player Collission with the window
-void Player::WindowCollision(Vector2u windowSize)
+void Player::WindowCollision(sf::Vector2u windowSize)
 {
 	if (this->shape.getPosition().x <= 0) //Left
 		this->shape.setPosition(0.f, this->shape.getPosition().y);
@@ -71,13 +94,13 @@ void Player::WindowCollision(Vector2u windowSize)
 // Player shoot bullets
 void Player::Shooting()
 {
-	if (this->ShootTimer < 20)
-		this->ShootTimer++;
+	if (this->SpawnTimer < 20)
+		this->SpawnTimer++;
 
-	if (Mouse::isButtonPressed(Mouse::Left) && ShootTimer >= 20) // Shooting
+	if (sf:: Mouse::isButtonPressed(sf::Mouse::Left) && SpawnTimer >= 20) // Shooting
 	{
 		this->bullets.push_back(Bullet(this->shape.getPosition()));
-		ShootTimer = 0; //reset timer
+		SpawnTimer = 0; //reset timer
 	}
 }
 
@@ -89,7 +112,7 @@ void Player::MovementBullets()
 	}
 }
 
-void Player::BulletsOut(Vector2u windowSize)
+void Player::BulletsOut(sf::Vector2u windowSize)
 {
 	for (size_t i = 0; i < this->bullets.size(); i++)
 	{
@@ -97,6 +120,32 @@ void Player::BulletsOut(Vector2u windowSize)
 		{
 			this->bullets.erase(this->bullets.begin() + i);
 			break;
+		}
+	}
+}
+
+//Ennemy Collision with Bullets
+void Player::EnemyCollisionWithBullets(std::vector<Enemy> ennemies)
+{
+	for (size_t i = 0; i < this->bullets.size(); i++)
+	{
+		//Ennemy Collision with Bullets
+		for (size_t j = 0; j < ennemies.size(); j++)
+		{
+			if (this->bullets[i].shape.getGlobalBounds().intersects(ennemies[j].shape.getGlobalBounds()))
+			{
+				if (ennemies[j].getHP() <= 1)
+				{
+					this->setScoring(this->getScoring() + ennemies[j].getHPMax());
+					ennemies.erase(ennemies.begin() + j);
+				}
+				else {
+					ennemies[j].setHP(ennemies[j].getHP() - 1);
+				}
+
+				this->bullets.erase(this->bullets.begin() + i);
+				break;
+			}
 		}
 	}
 }

@@ -1,15 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-using namespace sf;
-
 class Enemy
 {
 public:
-	Enemy(Texture *tex, Vector2u windowSize);
+	Enemy();
+	Enemy(sf::Texture *tex, sf::Vector2u windowSize);
 	~Enemy();
 
-	Sprite shape;
+	sf::Sprite shape;
+	int SpawnTimer;
 
 	// Getter et Setter
 	int getHP();
@@ -17,7 +17,8 @@ public:
 	int getHPMax();
 	void setHPMax(int hpmax);
 
-protected:
+	void EnemyOutWindow(std::vector<Enemy> ennemies);
+	void CollisionWithPlayer(std::vector<Enemy> ennemies);
 
 private:
 	int HP;
