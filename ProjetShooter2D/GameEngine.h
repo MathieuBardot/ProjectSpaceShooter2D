@@ -14,7 +14,6 @@ public:
 	~GameEngine();
 
 	void PlayGame();
-	void LaunchGame();
 
 private:
 	sf::RenderWindow window;

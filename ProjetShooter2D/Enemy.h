@@ -17,9 +17,6 @@ public:
 	int getHPMax();
 	void setHPMax(int hpmax);
 
-	void EnemyOutWindow(std::vector<Enemy> ennemies);
-	void CollisionWithPlayer(std::vector<Enemy> ennemies);
-
 private:
 	int HP;
 	int HPMax;

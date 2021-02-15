@@ -8,17 +8,13 @@ Player::Player()
 	this->scoring = 0;
 }
 
-Player::Player(Texture *tex)
+Player::Player(sf::Texture *tex)
 {
 	this->setHPMax(15);
 	this->setHP(getHPMax());
 	this->SpawnTimer = 30;
-	/*this->HPMax = 15;
-	this->HP = this->HPMax;
-	this->ShootTimer = 20;*/
 	this->scoring = 0;
 
-	//this->shape.setTexture(*tex);
 	this->shape.setTexture(*tex);
 	this->shape.setScale(0.3f,0.3f);
 }
@@ -26,35 +22,6 @@ Player::Player(Texture *tex)
 Player::~Player() {}
 
 // Getter and Setter
-/*int Player::getHP()
-{
-	return HP;
-}
-
-void Player::setHP(int hp)
-{
-	HP = hp;
-}
-
-int Player::getHPMax()
-{
-	return HPMax;
-}
-
-void Player::setHPMax(int hpmax)
-{
-	HPMax = hpmax;
-}
-
-sf::Texture Player::getTex() {
-	return *texture;
-}
-
-void Player::setTex(sf::Texture* tex)
-{
-	*texture = *tex;
-}*/
-
 int Player::getScoring()
 {
 	return scoring;
@@ -66,7 +33,7 @@ void Player::setScoring(int score)
 }
 
 // Player movement
-void Player::Movement()
+void Player::PlayerMovement()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		this->shape.move(0.f, -10.f);
@@ -104,6 +71,7 @@ void Player::Shooting()
 	}
 }
 
+// Movement Bullets after player shoot
 void Player::MovementBullets()
 {
 	for (size_t i = 0; i < this->bullets.size(); i++)
@@ -112,6 +80,7 @@ void Player::MovementBullets()
 	}
 }
 
+// Method for detroy bullets when go out the window
 void Player::BulletsOut(sf::Vector2u windowSize)
 {
 	for (size_t i = 0; i < this->bullets.size(); i++)
@@ -120,32 +89,6 @@ void Player::BulletsOut(sf::Vector2u windowSize)
 		{
 			this->bullets.erase(this->bullets.begin() + i);
 			break;
-		}
-	}
-}
-
-//Ennemy Collision with Bullets
-void Player::EnemyCollisionWithBullets(std::vector<Enemy> ennemies)
-{
-	for (size_t i = 0; i < this->bullets.size(); i++)
-	{
-		//Ennemy Collision with Bullets
-		for (size_t j = 0; j < ennemies.size(); j++)
-		{
-			if (this->bullets[i].shape.getGlobalBounds().intersects(ennemies[j].shape.getGlobalBounds()))
-			{
-				if (ennemies[j].getHP() <= 1)
-				{
-					this->setScoring(this->getScoring() + ennemies[j].getHPMax());
-					ennemies.erase(ennemies.begin() + j);
-				}
-				else {
-					ennemies[j].setHP(ennemies[j].getHP() - 1);
-				}
-
-				this->bullets.erase(this->bullets.begin() + i);
-				break;
-			}
 		}
 	}
 }
