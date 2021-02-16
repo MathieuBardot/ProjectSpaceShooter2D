@@ -21,7 +21,6 @@ public:
 	void PlayerMovement();
 	void WindowCollision(sf::Vector2u windowSize);
 	void Shooting();
-	void MovementBullets();
 	void BulletsOut(sf::Vector2u windowSize);
 
 private:

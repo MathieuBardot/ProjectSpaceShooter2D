@@ -12,7 +12,7 @@ Player::Player(sf::Texture *tex)
 {
 	this->setHPMax(15);
 	this->setHP(getHPMax());
-	this->SpawnTimer = 30;
+	this->SpawnTimer = 0;
 	this->scoring = 0;
 
 	this->shape.setTexture(*tex);
@@ -69,11 +69,7 @@ void Player::Shooting()
 		this->bullets.push_back(Bullet(this->shape.getPosition()));
 		SpawnTimer = 0; //reset timer
 	}
-}
 
-// Movement Bullets after player shoot
-void Player::MovementBullets()
-{
 	for (size_t i = 0; i < this->bullets.size(); i++)
 	{
 		this->bullets[i].shape.move(20.f, 0.f);

@@ -67,8 +67,6 @@ void GameEngine::PlayGame()
 
             this->player.Shooting();
 
-            this->player.MovementBullets();
-
             this->player.BulletsOut(this->window.getSize());
 
             //Enemy
