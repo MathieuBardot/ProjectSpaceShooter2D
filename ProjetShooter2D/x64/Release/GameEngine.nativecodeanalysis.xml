@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\Mathieu\Documents\Projet Shooter 2D doc\ProjectSpaceShooter2D\ProjetShooter2D\</FILEPATH>
+      <FILENAME>GameEngine.cpp</FILENAME>
+      <LINE>165</LINE>
+      <COLUMN>0</COLUMN>
+    </SFA>
+    <DEFECTCODE>26812</DEFECTCODE>
+    <DESCRIPTION>Le type enum 'sf::PrimitiveType’ est non délimité. Préférez ’enum class’ à ’enum' (enum.3).</DESCRIPTION>
+    <FUNCTION>sf::VertexArray::=</FUNCTION>
+    <DECORATED>??4VertexArray@sf@@QEAAAEAV01@AEBV01@@Z</DECORATED>
+    <FUNCLINE>192</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>
