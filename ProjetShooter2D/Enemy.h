@@ -16,9 +16,12 @@ public:
 	void setHP(int hp);
 	int getHPMax();
 	void setHPMax(int hpmax);
+	float getSpeed();
+	void setSpeed(float vitesse);
 
 private:
 	int HP;
 	int HPMax;
+	float Speed;
 };
 

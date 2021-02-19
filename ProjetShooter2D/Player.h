@@ -20,8 +20,7 @@ public:
 
 	void PlayerMovement();
 	void WindowCollision(sf::Vector2u windowSize);
-	void Shooting();
-	void BulletsOut(sf::Vector2u windowSize);
+	void Shooting(sf::Texture* tex, sf::Vector2u windowSize);
 
 private:
 	int scoring;

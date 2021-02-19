@@ -4,12 +4,9 @@
 class Bullet
 {
 public:
-	Bullet(sf::Vector2f pos);
+	Bullet(sf::Texture *tex, sf::Vector2f pos);
 	~Bullet();
 
-	sf::RectangleShape shape;
-
-private:
-
+	sf::Sprite shape;
 };
 

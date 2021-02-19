@@ -20,6 +20,7 @@ private:
 	sf::Font font;
 	sf::Texture playerTex;
 	sf::Texture ennemiTex;
+	sf::Texture missileTex;
 	sf::Text score;
 	sf::Text gameOver;
 	Player player;
